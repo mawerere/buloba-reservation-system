@@ -55,7 +55,6 @@ export default function OnboardingPage() {
           <h1 className="text-4xl font-black leading-tight tracking-[-.05em]">Create a new employee account.</h1>
           <p className="mt-5 max-w-md text-sm leading-7 text-slate-300">Recruits submit their details and choose a temporary password. An Admin/Manager reviews the request in the System Administration module; approval immediately activates the staff sign-in.</p>
           <div className="mt-7 space-y-3 text-xs text-slate-300"><div className="flex items-center gap-2"><UserPlus size={14} /> Self-service recruitment application</div><div className="flex items-center gap-2"><ShieldCheck size={14} /> Manager approval before system access</div><div className="flex items-center gap-2"><Building2 size={14} /> {HOTEL.location}</div></div>
-          <Link href="/login?demo=1" className="mt-8 inline-flex rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-bold text-white hover:bg-white/10">Open demo workspace instantly</Link>
         </motion.section>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .1 }}>
           <Card className="border-white/10 bg-white/95 text-slate-950 shadow-2xl">

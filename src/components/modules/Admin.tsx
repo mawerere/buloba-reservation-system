@@ -141,7 +141,6 @@ export default function Admin(props: ModuleProps) {
               </Card>
               <Card title="System health" description="Deployment and offline-readiness overview." icon={<ShieldCheck size={15} />}>
                 <div className="crs-scroll-list">
-                  <div className="crs-kv"><span>Interface preview</span><span>One-click signed demo session</span></div>
                   <div className="crs-kv"><span>Employee onboarding</span><span>Public application + admin approval</span></div>
                   <div className="crs-kv"><span>Local store</span><span>Dexie / IndexedDB</span></div>
                   <div className="crs-kv"><span>Service worker</span><span>Workbox runtime + background sync</span></div>
