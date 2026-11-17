@@ -7,8 +7,16 @@ if (!databaseUrl) {
   throw new Error("DATABASE_URL is required. Copy .env.example to .env.local and set your database URL.");
 }
 
-function useSsl(connectionString: string): boolean {
+function shouldUseSsl(connectionString: string): boolean {
   return /supabase\.(?:com|co)|sslmode=require|ssl=true/i.test(connectionString);
+}
+
+function connectionStringWithoutSslOptions(connectionString: string): string {
+  const url = new URL(connectionString);
+  for (const option of ["sslmode", "ssl", "sslcert", "sslkey", "sslrootcert"]) {
+    url.searchParams.delete(option);
+  }
+  return url.toString();
 }
 
 const globalForDb = globalThis as typeof globalThis & {
@@ -18,14 +26,15 @@ const globalForDb = globalThis as typeof globalThis & {
 export const pool =
   globalForDb.__arenaNextJsPostgresqlPool ??
   new Pool({
-    connectionString: databaseUrl,
-    ...(useSsl(databaseUrl)
+    ...(shouldUseSsl(databaseUrl)
       ? {
+          // Keep the TLS options below authoritative over URL query options.
+          connectionString: connectionStringWithoutSslOptions(databaseUrl),
           ssl: {
             rejectUnauthorized: false,
           },
         }
-      : {}),
+      : { connectionString: databaseUrl }),
   });
 
 if (process.env.NODE_ENV !== "production") {
